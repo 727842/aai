@@ -1,0 +1,81 @@
+std_startup.xml
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern>LOAD AIML B</pattern>
+        <template>
+            <learn>basic_chat.aiml</learn>
+        </template>
+    </category>
+</aiml>
+
+
+basic_chat.aiml
+<aiml version="1.0.1" encoding="UTF-8">
+	<!-- basic_chat.aiml -->
+	<category>
+		<pattern>HELLO</pattern>
+		<template>
+ Well, hello!
+ </template>
+	</category>
+<category>
+		<pattern>WHAT ARE YOU</pattern>
+		<template>
+ I'm a bot, silly!
+ </template>
+	</category>
+	<category>
+		<pattern>MY NAME IS *</pattern>
+		<template>
+			<set name = "username">
+				<star/>
+			</set> is the nice name.
+		</template>
+	</category>
+	<category>
+		<pattern>I LIKE *</pattern>
+		<template>
+			<set name = "liking">
+				<star/>
+			</set> is also my favo
+urite.
+		</template>
+	</category>
+	<category>
+		<pattern>MY DOG NAME IS *</pattern>
+		<template>
+THAT IS INTERESTING THAT YOU HAVE A DOG NAMED 
+			<set name ="dog">
+				<star/>
+			</set> .
+		</template>
+	</category>
+	<category>
+		<pattern>BYE</pattern>
+		<template>
+Bye!!! 
+			<get name = "username"/> Thanks for talking with me.
+ 
+		</template>
+	</category>
+</aiml>
+
+
+bot_py
+import aiml
+# Create the kernel and learn AIML files
+kernel = aiml.Kernel()
+kernel.learn("std-startup.xml")
+kernel.respond("LOAD AIML B")
+# Press CTRL-C to break this loop
+while True:
+    message = input("Enter your message to the bot: ")
+    if message == "quit":
+        break
+    else:
+        bot_response = kernel.respond(message)
+        print(bot_response)
+
+
+
+
